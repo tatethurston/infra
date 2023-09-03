@@ -61,7 +61,7 @@ resource "github_branch_protection" "main" {
 
   pattern                 = "main"
   enforce_admins          = true 
-  require_signed_commits  = true
+  require_signed_commits  = false
   allows_deletions        = false
   allows_force_pushes     = false
   required_linear_history = true
