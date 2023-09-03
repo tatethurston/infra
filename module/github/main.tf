@@ -6,6 +6,19 @@ variable "description" {
   description = "Description of the repository"
 }
 
+variable "visibility" {
+  description = "Visibility (public | private)"
+}
+
+variable "template" {
+  type = object({
+    owner      = string
+    repository = string
+  })
+  description = "GitHub Template"
+  default = null
+}
+
 terraform {
   required_providers {
     github = {
@@ -18,7 +31,7 @@ terraform {
 resource "github_repository" "repo" {
   name         = var.name
   description  = var.description
-  visibility   = "public"
+  visibility   = var.visibility
   auto_init    = true
 
   allow_merge_commit     = false 
@@ -32,13 +45,18 @@ resource "github_repository" "repo" {
   has_projects    = false
   has_wiki        = false
 
-  template {
-    owner      = "tatethurston"
-    repository = "typescript-package-template"
+  dynamic template {
+    for_each = var.template == null ? [] : [1] 
+    content {
+      owner       = var.template.owner
+      repository  = var.template.repository
+    }
   }
 }
 
 resource "github_branch_protection" "main" {
+  count = var.visibility == "private" ? 0 : 1
+
   repository_id = github_repository.repo.node_id
 
   pattern                 = "main"

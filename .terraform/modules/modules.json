@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"gh_repo_validation_object","Source":"./module/github","Dir":"module/github"},{"Key":"github","Source":"./module/github","Dir":""}]}
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"gh_repo_validation_object","Source":"./module/github","Dir":"module/github"},{"Key":"github","Source":"./module/github","Dir":""},{"Key":"squid","Source":"./module/github","Dir":"module/github"},{"Key":"validation_object","Source":"./module/github","Dir":"module/github"}]}
