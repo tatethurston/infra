@@ -51,3 +51,11 @@ module "terraform-modules" {
   visibility  = "public"
 }
 
+module "ruby-debezium" {
+  source      = "./module/github"
+  name        = "terraform-modules"
+  description = "Shared Terraform Modules"
+  visibility  = "public"
+}
+
+
