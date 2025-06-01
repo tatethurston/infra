@@ -10,13 +10,17 @@ variable "visibility" {
   description = "Visibility (public | private)"
 }
 
+variable "pages" {
+  description = "Whether to create a GitHub page"
+}
+
 variable "template" {
   type = object({
     owner      = string
     repository = string
   })
   description = "GitHub Template"
-  default = null
+  default     = null
 }
 
 terraform {
@@ -29,15 +33,15 @@ terraform {
 }
 
 resource "github_repository" "repo" {
-  name         = var.name
-  description  = var.description
-  visibility   = var.visibility
-  auto_init    = true
+  name        = var.name
+  description = var.description
+  visibility  = var.visibility
+  auto_init   = true
 
-  allow_merge_commit     = false 
-  allow_squash_merge     = true 
-  allow_rebase_merge     = false 
-  allow_auto_merge       = false 
+  allow_merge_commit     = false
+  allow_squash_merge     = true
+  allow_rebase_merge     = false
+  allow_auto_merge       = false
   delete_branch_on_merge = true
 
   has_issues      = true
@@ -45,11 +49,22 @@ resource "github_repository" "repo" {
   has_projects    = false
   has_wiki        = false
 
-  dynamic template {
-    for_each = var.template == null ? [] : [1] 
+  dynamic "template" {
+    for_each = var.template == null ? [] : [1]
     content {
-      owner       = var.template.owner
-      repository  = var.template.repository
+      owner      = var.template.owner
+      repository = var.template.repository
+    }
+  }
+
+  dynamic "pages" {
+    for_each = var.pages == true ? [1] : []
+    content {
+      build_type = "workflow"
+      source {
+        branch = "main"
+        path   = "/"
+      }
     }
   }
 }
@@ -60,10 +75,14 @@ resource "github_branch_protection" "main" {
   repository_id = github_repository.repo.node_id
 
   pattern                 = "main"
-  enforce_admins          = true 
+  enforce_admins          = true
   require_signed_commits  = false
   allows_deletions        = false
   allows_force_pushes     = false
   required_linear_history = true
 }
 
+output "repository_url" {
+  description = "The URL of the created GitHub repository"
+  value       = github_repository.repo.html_url
+}
