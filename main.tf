@@ -16,6 +16,7 @@ module "infra" {
   name        = "infra"
   description = "personal infra"
   visibility  = "public"
+  pages       = false
 }
 
 module "squid" {
@@ -23,6 +24,7 @@ module "squid" {
   name        = "squid"
   description = "App monorepo"
   visibility  = "private"
+  pages       = false
 }
 
 module "validation_object" {
@@ -35,6 +37,7 @@ module "validation_object" {
     owner      = "tatethurston"
     repository = "typescript-package-template"
   }
+  pages = false
 }
 
 module "rails-starter" {
@@ -42,6 +45,7 @@ module "rails-starter" {
   name        = "rails-starter"
   description = "Opinionated Rails Starter"
   visibility  = "public"
+  pages       = false
 }
 
 module "terraform-modules" {
@@ -49,13 +53,23 @@ module "terraform-modules" {
   name        = "terraform-modules"
   description = "Shared Terraform Modules"
   visibility  = "public"
+  pages       = false
 }
 
 module "ruby-debezium" {
   source      = "./module/github"
-  name        = "terraform-modules"
-  description = "Shared Terraform Modules"
+  name        = "ruby-debezium"
+  description = "A gem to handle CDC messages from Debezium"
   visibility  = "public"
+  pages       = true
+}
+
+module "activerecord_explicit_fields" {
+  source      = "./module/github"
+  name        = "activerecord_explicit_fields"
+  description = "Explicit fields for ActiveRecord"
+  visibility  = "public"
+  pages       = true
 }
 
 

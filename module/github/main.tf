@@ -10,6 +10,10 @@ variable "visibility" {
   description = "Visibility (public | private)"
 }
 
+variable "pages" {
+  description = "Whether to create a GitHub page"
+}
+
 variable "template" {
   type = object({
     owner      = string
@@ -50,6 +54,17 @@ resource "github_repository" "repo" {
     content {
       owner      = var.template.owner
       repository = var.template.repository
+    }
+  }
+
+  dynamic "pages" {
+    for_each = var.pages == true ? [1] : []
+    content {
+      build_type = "workflow"
+      source {
+        branch = "main"
+        path   = "/"
+      }
     }
   }
 }
