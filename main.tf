@@ -71,5 +71,3 @@ module "activerecord_explicit_fields" {
   visibility  = "public"
   pages       = true
 }
-
-
