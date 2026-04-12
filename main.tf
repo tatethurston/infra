@@ -71,3 +71,15 @@ module "activerecord_explicit_fields" {
   visibility  = "public"
   pages       = true
 }
+
+module "book-worm" {
+  source      = "./module/github"
+  name        = "book-worm"
+  description = "Emily's book app"
+  visibility  = "private"
+  pages       = false
+}
+
+
+
+
