@@ -1,16 +1,20 @@
 variable "name" {
+  type        = string
   description = "Name of the repository"
 }
 
 variable "description" {
+  type        = string
   description = "Description of the repository"
 }
 
 variable "visibility" {
+  type        = string
   description = "Visibility (public | private)"
 }
 
 variable "pages" {
+  type        = bool
   description = "Whether to create a GitHub page"
 }
 
@@ -24,6 +28,8 @@ variable "template" {
 }
 
 terraform {
+  required_version = ">= 1.5"
+
   required_providers {
     github = {
       source  = "integrations/github"
@@ -86,3 +92,4 @@ output "repository_url" {
   description = "The URL of the created GitHub repository"
   value       = github_repository.repo.html_url
 }
+
