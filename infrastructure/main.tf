@@ -1,9 +1,21 @@
 terraform {
+  required_version = ">= 1.5"
+
   required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.84"
+    }
     github = {
       source  = "integrations/github"
       version = "~> 5.0"
     }
+  }
+
+  backend "s3" {
+    bucket = "tatethurston-terraform-state"
+    key    = "infra"
+    region = "us-west-1"
   }
 }
 
@@ -27,7 +39,7 @@ module "squid" {
   pages       = false
 }
 
-module "validation_object" {
+module "validation-object" {
   source      = "./module/github"
   name        = "validation-object"
   description = "A validation framework for objects"

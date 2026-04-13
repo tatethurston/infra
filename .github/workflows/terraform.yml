@@ -25,7 +25,6 @@ jobs:
         with:
           aws-s3-bucket: tatethurston-terraform-state
           directory: infrastructure
-          plan-key: ${{ github.sha }}
 
   apply:
     if: github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -42,4 +41,3 @@ jobs:
         with:
           aws-s3-bucket: tatethurston-terraform-state
           directory: infrastructure
-          plan-key: ${{ github.sha }}
