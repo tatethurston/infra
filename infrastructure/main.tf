@@ -92,6 +92,18 @@ module "book-worm" {
   pages       = false
 }
 
+module "aws-org" {
+  source      = "./module/github"
+  name        = "aws-org-lab"
+  description = "AWS Organization for Lab"
+  visibility  = "private"
+  pages       = false
+}
+
+
+
+
+
 
 
 
